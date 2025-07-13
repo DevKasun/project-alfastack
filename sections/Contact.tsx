@@ -67,7 +67,7 @@ const Contact = () => {
 	return (
 		<section
 			id='contact'
-			className='py-20 bg-gradient-to-b from-gray-50 to-white'
+			className='py-20 bg-gradient-to-b from-gray-900 to-black'
 		>
 			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 				<motion.div
@@ -77,10 +77,10 @@ const Contact = () => {
 					transition={{ duration: 0.8 }}
 					className='text-center mb-16'
 				>
-					<h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6'>
+					<h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6'>
 						Get In Touch
 					</h2>
-					<p className='text-lg md:text-xl text-gray-600 max-w-3xl mx-auto'>
+					<p className='text-lg md:text-xl text-gray-300 max-w-3xl mx-auto'>
 						Ready to transform your business with AI? Let&apos;s
 						discuss how we can help you achieve your goals.
 					</p>
@@ -92,9 +92,9 @@ const Contact = () => {
 						initial={{ opacity: 0, x: -50 }}
 						animate={isInView ? { opacity: 1, x: 0 } : {}}
 						transition={{ duration: 0.8, delay: 0.2 }}
-						className='bg-white rounded-2xl shadow-xl p-8'
+						className='bg-gray-900 rounded-2xl shadow-xl p-8 border border-gray-800'
 					>
-						<h3 className='text-2xl font-bold text-gray-900 mb-6'>
+						<h3 className='text-2xl font-bold text-white mb-6'>
 							Send us a message
 						</h3>
 						<form onSubmit={handleSubmit} className='space-y-6'>
@@ -102,7 +102,7 @@ const Contact = () => {
 								<div>
 									<label
 										htmlFor='name'
-										className='block text-sm font-medium text-gray-700 mb-2'
+										className='block text-sm font-medium text-gray-300 mb-2'
 									>
 										Name *
 									</label>
@@ -113,14 +113,14 @@ const Contact = () => {
 										value={formData.name}
 										onChange={handleInputChange}
 										required
-										className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
+										className='w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors text-white placeholder-gray-400'
 										placeholder='Your name'
 									/>
 								</div>
 								<div>
 									<label
 										htmlFor='email'
-										className='block text-sm font-medium text-gray-700 mb-2'
+										className='block text-sm font-medium text-gray-300 mb-2'
 									>
 										Email *
 									</label>
@@ -131,7 +131,7 @@ const Contact = () => {
 										value={formData.email}
 										onChange={handleInputChange}
 										required
-										className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
+										className='w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors text-white placeholder-gray-400'
 										placeholder='your@email.com'
 									/>
 								</div>
@@ -139,7 +139,7 @@ const Contact = () => {
 							<div>
 								<label
 									htmlFor='company'
-									className='block text-sm font-medium text-gray-700 mb-2'
+									className='block text-sm font-medium text-gray-300 mb-2'
 								>
 									Company
 								</label>
@@ -149,14 +149,14 @@ const Contact = () => {
 									name='company'
 									value={formData.company}
 									onChange={handleInputChange}
-									className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
+									className='w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors text-white placeholder-gray-400'
 									placeholder='Your company'
 								/>
 							</div>
 							<div>
 								<label
 									htmlFor='message'
-									className='block text-sm font-medium text-gray-700 mb-2'
+									className='block text-sm font-medium text-gray-300 mb-2'
 								>
 									Message *
 								</label>
@@ -167,7 +167,7 @@ const Contact = () => {
 									onChange={handleInputChange}
 									required
 									rows={4}
-									className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
+									className='w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors text-white placeholder-gray-400'
 									placeholder='Tell us about your project...'
 								/>
 							</div>
@@ -185,7 +185,7 @@ const Contact = () => {
 						className='space-y-8'
 					>
 						<div>
-							<h3 className='text-2xl font-bold text-gray-900 mb-6'>
+							<h3 className='text-2xl font-bold text-white mb-6'>
 								Contact Information
 							</h3>
 							<div className='space-y-6'>
@@ -206,13 +206,13 @@ const Contact = () => {
 											{info.icon}
 										</div>
 										<div>
-											<h4 className='text-lg font-semibold text-gray-900'>
+											<h4 className='text-lg font-semibold text-white'>
 												{info.title}
 											</h4>
-											<p className='text-blue-600 font-medium'>
+											<p className='text-purple-400 font-medium'>
 												{info.value}
 											</p>
-											<p className='text-gray-600 text-sm'>
+											<p className='text-gray-400 text-sm'>
 												{info.description}
 											</p>
 										</div>
@@ -221,7 +221,7 @@ const Contact = () => {
 							</div>
 						</div>
 
-						<div className='bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white'>
+						<div className='bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-8 text-white'>
 							<h4 className='text-xl font-bold mb-4'>
 								Ready to get started?
 							</h4>
@@ -232,14 +232,14 @@ const Contact = () => {
 							<Button
 								variant='secondary'
 								size='lg'
-								className='w-full bg-white text-blue-600 hover:bg-gray-100'
+								className='w-full bg-white text-purple-600 hover:bg-gray-100'
 							>
 								Schedule Consultation
 							</Button>
 						</div>
 
 						<div className='text-center'>
-							<p className='text-gray-600 mb-4'>
+							<p className='text-gray-400 mb-4'>
 								Follow us on social media
 							</p>
 							<div className='flex justify-center space-x-6'>
@@ -253,7 +253,7 @@ const Contact = () => {
 										key={index}
 										href='#'
 										whileHover={{ scale: 1.1 }}
-										className='text-gray-600 hover:text-blue-600 transition-colors'
+										className='text-gray-400 hover:text-purple-400 transition-colors'
 									>
 										{social}
 									</motion.a>

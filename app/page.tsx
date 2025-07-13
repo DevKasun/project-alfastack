@@ -21,7 +21,7 @@ export default function Home() {
 			<Contact />
 
 			{/* Footer */}
-			<footer className='bg-gray-900 text-white py-12'>
+			<footer className='bg-black text-white py-12 border-t border-gray-800'>
 				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 					<div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
 						<div className='col-span-1 md:col-span-2'>
@@ -44,7 +44,7 @@ export default function Home() {
 									<a
 										key={index}
 										href='#'
-										className='text-gray-400 hover:text-white transition-colors'
+										className='text-gray-400 hover:text-purple-400 transition-colors'
 									>
 										{social}
 									</a>
@@ -60,7 +60,7 @@ export default function Home() {
 								<li>
 									<a
 										href='#'
-										className='hover:text-white transition-colors'
+										className='hover:text-purple-400 transition-colors'
 									>
 										AI Strategy
 									</a>
@@ -68,7 +68,7 @@ export default function Home() {
 								<li>
 									<a
 										href='#'
-										className='hover:text-white transition-colors'
+										className='hover:text-purple-400 transition-colors'
 									>
 										Custom Solutions
 									</a>
@@ -76,7 +76,7 @@ export default function Home() {
 								<li>
 									<a
 										href='#'
-										className='hover:text-white transition-colors'
+										className='hover:text-purple-400 transition-colors'
 									>
 										Integration
 									</a>
@@ -84,7 +84,7 @@ export default function Home() {
 								<li>
 									<a
 										href='#'
-										className='hover:text-white transition-colors'
+										className='hover:text-purple-400 transition-colors'
 									>
 										Training & Support
 									</a>
@@ -100,7 +100,7 @@ export default function Home() {
 								<li>
 									<a
 										href='#'
-										className='hover:text-white transition-colors'
+										className='hover:text-purple-400 transition-colors'
 									>
 										About Us
 									</a>
@@ -108,7 +108,7 @@ export default function Home() {
 								<li>
 									<a
 										href='#'
-										className='hover:text-white transition-colors'
+										className='hover:text-purple-400 transition-colors'
 									>
 										Careers
 									</a>
@@ -116,7 +116,7 @@ export default function Home() {
 								<li>
 									<a
 										href='#'
-										className='hover:text-white transition-colors'
+										className='hover:text-purple-400 transition-colors'
 									>
 										Blog
 									</a>
@@ -124,7 +124,7 @@ export default function Home() {
 								<li>
 									<a
 										href='#'
-										className='hover:text-white transition-colors'
+										className='hover:text-purple-400 transition-colors'
 									>
 										Contact
 									</a>
