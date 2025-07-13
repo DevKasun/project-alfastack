@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI SaaS
 
-## Getting Started
+A modern, responsive landing page for an AI SaaS product built with Next.js 15, TypeScript, and Tailwind CSS. Features smooth scrolling animations, modern UI components, and optimized performance.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+-   **Modern Design**: Clean, professional landing page with smooth animations
+-   **Responsive Layout**: Mobile-first design that works across all devices
+-   **Smooth Scrolling**: Enhanced user experience with Lenis smooth scroll
+-   **Animations**: Subtle scroll-triggered animations using Motion library
+-   **Performance Optimized**: Built with Next.js 15 and latest React 19
+-   **TypeScript**: Full type safety throughout the application
+-   **Tailwind CSS**: Utility-first styling for rapid development
+
+## 🛠️ Tech Stack
+
+-   **Framework**: Next.js 15 (App Router)
+-   **Language**: TypeScript
+-   **Styling**: Tailwind CSS v4
+-   **Animations**: Motion library
+-   **Smooth Scroll**: Lenis
+-   **Package Manager**: pnpm
+
+## 📁 Project Structure
+
+```
+project-alfastack/
+├── app/                    # Next.js App Router
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Main landing page
+│   └── globals.css        # Global styles
+├── components/            # Reusable UI components
+│   ├── Button.tsx
+│   └── Navbar.tsx
+├── sections/              # Landing page sections
+│   ├── Hero.tsx
+│   ├── About.tsx
+│   ├── Services.tsx
+│   ├── TechStack.tsx
+│   └── Contact.tsx
+├── hooks/                 # Custom React hooks
+│   └── useSmoothScroll.tsx
+├── utils/                 # Utility functions
+└── public/                # Static assets
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-   Node.js 18+
+-   pnpm (recommended) or npm/yarn
 
-## Learn More
+### Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone the repository:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+git clone <repository-url>
+cd project-alfastack
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Install dependencies:
 
-## Deploy on Vercel
+```bash
+pnpm install
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Run the development server:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Available Scripts
+
+-   `pnpm dev` - Start development server with Turbopack
+-   `pnpm build` - Build for production
+-   `pnpm start` - Start production server
+-   `pnpm lint` - Run ESLint
+
+## 🎨 Sections
+
+The landing page includes the following sections:
+
+1. **Hero** - Main introduction with call-to-action
+2. **About** - Company/product overview
+3. **Services** - AI services and offerings
+4. **Tech Stack** - Technologies and tools used
+5. **Contact** - Contact form and information
+
+## 📱 Responsive Design
+
+The landing page is fully responsive and optimized for:
+
+-   Mobile devices (320px+)
+-   Tablets (768px+)
+-   Desktop (1024px+)
+-   Large screens (1440px+)
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Connect your repository to [Vercel](https://vercel.com)
+3. Deploy automatically with each push
+
+### Other Platforms
+
+The project can be deployed on any platform that supports Next.js:
+
+-   Netlify
+-   AWS Amplify
+-   Railway
+-   Render
