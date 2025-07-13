@@ -35,7 +35,7 @@ const About = () => {
 	];
 
 	return (
-		<section id='about' className='py-20 bg-white'>
+		<section id='about' className='py-20 bg-gray-900'>
 			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 				<motion.div
 					ref={ref}
@@ -44,10 +44,10 @@ const About = () => {
 					transition={{ duration: 0.8 }}
 					className='text-center mb-16'
 				>
-					<h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6'>
+					<h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6'>
 						Who We Are
 					</h2>
-					<p className='text-lg md:text-xl text-gray-600 max-w-3xl mx-auto'>
+					<p className='text-lg md:text-xl text-gray-300 max-w-3xl mx-auto'>
 						We&apos;re a team of AI experts, engineers, and
 						innovators dedicated to making artificial intelligence
 						accessible and practical for businesses of all sizes.
@@ -71,10 +71,10 @@ const About = () => {
 							>
 								{feature.icon}
 							</motion.div>
-							<h3 className='text-xl font-semibold text-gray-900 mb-3'>
+							<h3 className='text-xl font-semibold text-white mb-3'>
 								{feature.title}
 							</h3>
-							<p className='text-gray-600 leading-relaxed'>
+							<p className='text-gray-300 leading-relaxed'>
 								{feature.description}
 							</p>
 						</motion.div>
@@ -85,7 +85,7 @@ const About = () => {
 					initial={{ opacity: 0, y: 30 }}
 					animate={isInView ? { opacity: 1, y: 0 } : {}}
 					transition={{ duration: 0.8, delay: 0.5 }}
-					className='mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center text-white'
+					className='mt-16 bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-8 md:p-12 text-center text-white'
 				>
 					<h3 className='text-2xl md:text-3xl font-bold mb-4'>
 						Join the AI Revolution

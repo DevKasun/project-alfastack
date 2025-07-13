@@ -18,8 +18,8 @@ const Services = () => {
 				'Implementation Roadmap',
 				'ROI Planning',
 			],
-			icon: '🎯',
-			color: 'from-blue-500 to-cyan-500',
+			icon: '��',
+			color: 'from-purple-500 to-purple-700',
 		},
 		{
 			title: 'Custom AI Solutions',
@@ -32,7 +32,7 @@ const Services = () => {
 				'Predictive Analytics',
 			],
 			icon: '🛠️',
-			color: 'from-purple-500 to-pink-500',
+			color: 'from-purple-600 to-purple-800',
 		},
 		{
 			title: 'AI Integration & Deployment',
@@ -45,7 +45,7 @@ const Services = () => {
 				'Performance Optimization',
 			],
 			icon: '🔗',
-			color: 'from-green-500 to-emerald-500',
+			color: 'from-purple-500 to-purple-700',
 		},
 		{
 			title: 'AI Training & Support',
@@ -58,7 +58,7 @@ const Services = () => {
 				'Regular Updates',
 			],
 			icon: '🎓',
-			color: 'from-orange-500 to-red-500',
+			color: 'from-purple-600 to-purple-800',
 		},
 	];
 
@@ -89,7 +89,7 @@ const Services = () => {
 	];
 
 	return (
-		<section id='services' className='py-20 bg-gray-50'>
+		<section id='services' className='py-20 bg-black'>
 			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 				<motion.div
 					ref={ref}
@@ -98,10 +98,10 @@ const Services = () => {
 					transition={{ duration: 0.8 }}
 					className='text-center mb-16'
 				>
-					<h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6'>
+					<h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6'>
 						Our AI Transformation Model
 					</h2>
-					<p className='text-lg md:text-xl text-gray-600 max-w-3xl mx-auto'>
+					<p className='text-lg md:text-xl text-gray-300 max-w-3xl mx-auto'>
 						We guide you through every step of your AI journey, from
 						initial assessment to full-scale deployment and
 						optimization.
@@ -119,17 +119,17 @@ const Services = () => {
 							className='text-center'
 						>
 							<div className='relative mb-6'>
-								<div className='w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto'>
+								<div className='w-20 h-20 bg-gradient-to-r from-purple-600 to-purple-800 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto'>
 									{step.step}
 								</div>
 								{index < transformationSteps.length - 1 && (
-									<div className='hidden lg:block absolute top-10 left-1/2 transform translate-x-8 w-full h-0.5 bg-gray-300'></div>
+									<div className='hidden lg:block absolute top-10 left-1/2 transform translate-x-8 w-full h-0.5 bg-gray-700'></div>
 								)}
 							</div>
-							<h3 className='text-xl font-semibold text-gray-900 mb-3'>
+							<h3 className='text-xl font-semibold text-white mb-3'>
 								{step.title}
 							</h3>
-							<p className='text-gray-600'>{step.description}</p>
+							<p className='text-gray-300'>{step.description}</p>
 						</motion.div>
 					))}
 				</div>
@@ -146,7 +146,7 @@ const Services = () => {
 								delay: 0.4 + index * 0.1,
 							}}
 							whileHover={{ y: -5 }}
-							className='bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300'
+							className='bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-800'
 						>
 							<div
 								className={`h-2 bg-gradient-to-r ${service.color}`}
@@ -156,11 +156,11 @@ const Services = () => {
 									<div className='text-4xl mr-4'>
 										{service.icon}
 									</div>
-									<h3 className='text-2xl font-bold text-gray-900'>
+									<h3 className='text-2xl font-bold text-white'>
 										{service.title}
 									</h3>
 								</div>
-								<p className='text-gray-600 mb-6'>
+								<p className='text-gray-300 mb-6'>
 									{service.description}
 								</p>
 								<ul className='space-y-2'>
@@ -170,10 +170,10 @@ const Services = () => {
 												key={featureIndex}
 												className='flex items-center'
 											>
-												<span className='text-green-500 mr-2'>
+												<span className='text-purple-400 mr-2'>
 													✓
 												</span>
-												<span className='text-gray-700'>
+												<span className='text-gray-300'>
 													{feature}
 												</span>
 											</li>
@@ -192,18 +192,18 @@ const Services = () => {
 					transition={{ duration: 0.8, delay: 0.8 }}
 					className='mt-20 text-center'
 				>
-					<div className='bg-white rounded-2xl p-8 md:p-12 shadow-xl'>
-						<h3 className='text-2xl md:text-3xl font-bold text-gray-900 mb-4'>
+					<div className='bg-gray-900 rounded-2xl p-8 md:p-12 shadow-xl border border-gray-800'>
+						<h3 className='text-2xl md:text-3xl font-bold text-white mb-4'>
 							Ready to Transform Your Business?
 						</h3>
-						<p className='text-lg text-gray-600 mb-8'>
+						<p className='text-lg text-gray-300 mb-8'>
 							Schedule a free consultation to discover how AI can
 							revolutionize your operations.
 						</p>
 						<motion.button
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
-							className='bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-shadow duration-300'
+							className='bg-gradient-to-r from-purple-600 to-purple-800 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-shadow duration-300'
 						>
 							Schedule Free Consultation
 						</motion.button>
