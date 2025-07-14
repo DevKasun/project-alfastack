@@ -21,6 +21,11 @@ export const metadata: Metadata = {
 	],
 	authors: [{ name: 'AlfaStack Team' }],
 	viewport: 'width=device-width, initial-scale=1.0',
+	icons: {
+		icon: '/alfastack-logo.png',
+		shortcut: '/alfastack-logo.png',
+		apple: '/alfastack-logo.png',
+	},
 };
 
 export default function RootLayout({

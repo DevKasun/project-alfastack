@@ -14,9 +14,25 @@ const Hero = () => {
 	return (
 		<section
 			id='home'
-			className='min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black pt-24 pb-20 relative'
+			className='min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black pt-24 pb-20 relative overflow-hidden'
 		>
-			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
+			{/* Video Background */}
+			<div className='absolute inset-0 w-full h-full'>
+				<video
+					autoPlay
+					loop
+					muted
+					playsInline
+					className='absolute inset-0 w-full h-full object-cover'
+				>
+					<source src='/video/digital-earth.webm' type='video/webm' />
+					<source src='/video/digital-earth.mp4' type='video/mp4' />
+				</video>
+				{/* Dark overlay for better text readability */}
+				<div className='absolute inset-0 bg-black/60'></div>
+			</div>
+
+			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10'>
 				<motion.div
 					initial={{ opacity: 0, y: 30 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -53,13 +69,17 @@ const Hero = () => {
 						transition={{ duration: 0.8, delay: 0.6 }}
 						className='flex flex-col sm:flex-row gap-4 justify-center items-center'
 					>
-						<Button size='lg' className='min-w-[200px]'>
+						<Button
+							variant='glass'
+							size='lg'
+							className='min-w-[200px]'
+						>
 							Get Started Free
 						</Button>
 						<Button
-							variant='outline'
+							variant='glass'
 							size='lg'
-							className='min-w-[200px]'
+							className='min-w-[200px] !bg-white/5 hover:!bg-white/10'
 						>
 							Watch Demo
 						</Button>

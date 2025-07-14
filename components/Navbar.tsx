@@ -69,6 +69,7 @@ const Navbar = () => {
 
 					<div className='hidden md:block'>
 						<Button
+							variant='glass'
 							size='sm'
 							onClick={() => scrollToSection('#contact')}
 						>

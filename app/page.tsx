@@ -7,6 +7,7 @@ import About from '../sections/About';
 import Services from '../sections/Services';
 import TechStack from '../sections/TechStack';
 import Contact from '../sections/Contact';
+import CTA from '../sections/CTA';
 
 export default function Home() {
 	useSmoothScroll();
@@ -19,6 +20,7 @@ export default function Home() {
 			<Services />
 			<TechStack />
 			<Contact />
+			<CTA />
 
 			{/* Footer */}
 			<footer className='bg-black text-white py-12 border-t border-gray-800'>

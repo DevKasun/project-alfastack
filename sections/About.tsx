@@ -35,8 +35,20 @@ const About = () => {
 	];
 
 	return (
-		<section id='about' className='py-20 bg-gray-900'>
-			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+		<section
+			id='about'
+			className='py-20 relative overflow-hidden'
+			style={{
+				backgroundImage: `url('/images/bg-02.webp')`,
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
+				backgroundAttachment: 'fixed',
+			}}
+		>
+			{/* Background overlay */}
+			<div className='absolute inset-0 bg-black/75 backdrop-blur-sm' />
+
+			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
 				<motion.div
 					ref={ref}
 					initial={{ opacity: 0, y: 50 }}
@@ -63,69 +75,26 @@ const About = () => {
 							initial={{ opacity: 0, y: 30 }}
 							animate={isInView ? { opacity: 1, y: 0 } : {}}
 							transition={{ duration: 0.6, delay: index * 0.1 }}
-							className='text-center p-6'
+							className='text-center relative group'
 						>
-							<motion.div
-								whileHover={{ scale: 1.1, rotate: 5 }}
-								className='text-6xl mb-4'
-							>
-								{feature.icon}
-							</motion.div>
-							<h3 className='text-xl font-semibold text-white mb-3'>
-								{feature.title}
-							</h3>
-							<p className='text-gray-300 leading-relaxed'>
-								{feature.description}
-							</p>
+							<div className='absolute inset-0 bg-gradient-to-br from-purple-600/20 to-purple-800/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300' />
+							<div className='relative bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:bg-white/15'>
+								<motion.div
+									whileHover={{ scale: 1.1, rotate: 5 }}
+									className='text-6xl mb-4'
+								>
+									{feature.icon}
+								</motion.div>
+								<h3 className='text-xl font-semibold text-white mb-3'>
+									{feature.title}
+								</h3>
+								<p className='text-gray-300 leading-relaxed'>
+									{feature.description}
+								</p>
+							</div>
 						</motion.div>
 					))}
 				</div>
-
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					animate={isInView ? { opacity: 1, y: 0 } : {}}
-					transition={{ duration: 0.8, delay: 0.5 }}
-					className='mt-16 bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-8 md:p-12 text-center text-white'
-				>
-					<h3 className='text-2xl md:text-3xl font-bold mb-4'>
-						Join the AI Revolution
-					</h3>
-					<p className='text-lg md:text-xl mb-6 opacity-90'>
-						Over 10,000 companies trust AlfaStack to power their AI
-						transformation. From startups to Fortune 500 companies,
-						we&apos;ve helped businesses unlock their potential.
-					</p>
-					<div className='flex flex-col sm:flex-row gap-4 justify-center items-center'>
-						<div className='flex items-center space-x-2'>
-							<div className='flex -space-x-2'>
-								{[...Array(5)].map((_, i) => (
-									<div
-										key={i}
-										className='w-8 h-8 bg-white rounded-full border-2 border-white flex items-center justify-center text-sm'
-									>
-										👤
-									</div>
-								))}
-							</div>
-							<span className='text-sm opacity-90'>
-								+10,000 users
-							</span>
-						</div>
-						<div className='flex items-center space-x-1'>
-							{[...Array(5)].map((_, i) => (
-								<span
-									key={i}
-									className='text-yellow-400 text-xl'
-								>
-									⭐
-								</span>
-							))}
-							<span className='text-sm opacity-90 ml-2'>
-								4.9/5 rating
-							</span>
-						</div>
-					</div>
-				</motion.div>
 			</div>
 		</section>
 	);

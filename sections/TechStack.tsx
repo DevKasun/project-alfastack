@@ -10,6 +10,7 @@ const TechStack = () => {
 	const techCategories = [
 		{
 			title: 'AI & Machine Learning',
+			backgroundImage: '/images/bg-01.webp',
 			technologies: [
 				{
 					name: 'TensorFlow',
@@ -45,6 +46,7 @@ const TechStack = () => {
 		},
 		{
 			title: 'Cloud & Infrastructure',
+			backgroundImage: '/images/bg-02.webp',
 			technologies: [
 				{
 					name: 'AWS',
@@ -76,6 +78,7 @@ const TechStack = () => {
 		},
 		{
 			title: 'Data & Analytics',
+			backgroundImage: '/images/bg-03.webp',
 			technologies: [
 				{
 					name: 'Apache Spark',
@@ -107,16 +110,17 @@ const TechStack = () => {
 		},
 		{
 			title: 'Development & Security',
+			backgroundImage: '/images/bg-04.webp',
 			technologies: [
 				{
 					name: 'Python',
 					logo: '🐍',
-					description: 'Primary programming language',
+					description: 'programming language',
 				},
 				{
 					name: 'FastAPI',
 					logo: '🚀',
-					description: 'High-performance API framework',
+					description: 'API framework',
 				},
 				{
 					name: 'React',
@@ -152,9 +156,18 @@ const TechStack = () => {
 	return (
 		<section
 			id='tech-stack'
-			className='py-20 bg-gradient-to-b from-gray-900 to-black text-white'
+			className='py-20 relative overflow-hidden'
+			style={{
+				backgroundImage: `url('/images/bg-05.webp')`,
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
+				backgroundAttachment: 'fixed',
+			}}
 		>
-			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+			{/* Background overlay */}
+			<div className='absolute inset-0 bg-black/70 backdrop-blur-sm' />
+
+			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
 				<motion.div
 					ref={ref}
 					initial={{ opacity: 0, y: 50 }}
@@ -162,7 +175,7 @@ const TechStack = () => {
 					transition={{ duration: 0.8 }}
 					className='text-center mb-16'
 				>
-					<h2 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-6'>
+					<h2 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white'>
 						Our Technology Stack
 					</h2>
 					<p className='text-lg md:text-xl text-gray-300 max-w-3xl mx-auto'>
@@ -183,45 +196,61 @@ const TechStack = () => {
 								duration: 0.6,
 								delay: categoryIndex * 0.1,
 							}}
-							className='bg-gray-800 rounded-xl p-8 shadow-2xl border border-gray-700'
+							className='relative group'
 						>
-							<h3 className='text-2xl font-bold mb-6 text-center'>
-								{category.title}
-							</h3>
-							<div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-								{category.technologies.map(
-									(tech, techIndex) => (
-										<motion.div
-											key={techIndex}
-											initial={{ opacity: 0, x: -20 }}
-											animate={
-												isInView
-													? { opacity: 1, x: 0 }
-													: {}
-											}
-											transition={{
-												duration: 0.5,
-												delay:
-													categoryIndex * 0.1 +
-													techIndex * 0.05,
-											}}
-											whileHover={{ scale: 1.05 }}
-											className='flex items-center p-3 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors duration-200'
-										>
-											<div className='text-2xl mr-3'>
-												{tech.logo}
-											</div>
-											<div>
-												<div className='font-semibold text-white'>
-													{tech.name}
+							{/* Background image */}
+							<div
+								className='absolute inset-0 rounded-2xl opacity-30 group-hover:opacity-40 transition-opacity duration-300'
+								style={{
+									backgroundImage: `url('${category.backgroundImage}')`,
+									backgroundSize: 'cover',
+									backgroundPosition: 'center',
+								}}
+							/>
+
+							{/* Glass card */}
+							<div className='relative bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:bg-white/15'>
+								<h3 className='text-2xl font-bold mb-6 text-center text-white'>
+									{category.title}
+								</h3>
+								<div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+									{category.technologies.map(
+										(tech, techIndex) => (
+											<motion.div
+												key={techIndex}
+												initial={{ opacity: 0, x: -20 }}
+												animate={
+													isInView
+														? { opacity: 1, x: 0 }
+														: {}
+												}
+												transition={{
+													duration: 0.5,
+													delay:
+														categoryIndex * 0.1 +
+														techIndex * 0.05,
+												}}
+												whileHover={{
+													scale: 1.05,
+													y: -2,
+												}}
+												className='flex items-center p-3 bg-white/10 backdrop-blur-sm rounded-xl hover:bg-white/20 transition-all duration-200 border border-white/10'
+											>
+												<div className='text-2xl mr-3'>
+													{tech.logo}
 												</div>
-												<div className='text-sm text-gray-400'>
-													{tech.description}
+												<div>
+													<div className='font-semibold text-white'>
+														{tech.name}
+													</div>
+													<div className='text-sm text-gray-300'>
+														{tech.description}
+													</div>
 												</div>
-											</div>
-										</motion.div>
-									)
-								)}
+											</motion.div>
+										)
+									)}
+								</div>
 							</div>
 						</motion.div>
 					))}
@@ -231,41 +260,45 @@ const TechStack = () => {
 				<motion.div
 					initial={{ opacity: 0, y: 30 }}
 					animate={isInView ? { opacity: 1, y: 0 } : {}}
-					transition={{ duration: 0.8, delay: 0.5 }}
-					className='bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-8 md:p-12'
+					transition={{ duration: 0.8, delay: 0.6 }}
+					className='relative'
 				>
-					<div className='text-center mb-8'>
-						<h3 className='text-2xl md:text-3xl font-bold mb-4'>
+					<div className='absolute inset-0 bg-gradient-to-r from-purple-600/20 to-purple-800/20 rounded-2xl blur-xl' />
+					<div className='relative bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl'>
+						<h3 className='text-2xl md:text-3xl font-bold mb-8 text-center text-white'>
 							Performance & Security
 						</h3>
-						<p className='text-lg opacity-90'>
+						<p className='text-center text-gray-300 mb-8'>
 							Our infrastructure is built for enterprise-grade
 							reliability and security
 						</p>
-					</div>
-					<div className='grid grid-cols-2 md:grid-cols-4 gap-8'>
-						{achievements.map((achievement, index) => (
-							<motion.div
-								key={index}
-								initial={{ opacity: 0, y: 20 }}
-								animate={isInView ? { opacity: 1, y: 0 } : {}}
-								transition={{
-									duration: 0.6,
-									delay: 0.7 + index * 0.1,
-								}}
-								className='text-center'
-							>
-								<div className='text-4xl mb-2'>
-									{achievement.icon}
-								</div>
-								<div className='text-2xl md:text-3xl font-bold mb-1'>
-									{achievement.metric}
-								</div>
-								<div className='text-sm opacity-90'>
-									{achievement.label}
-								</div>
-							</motion.div>
-						))}
+						<div className='grid grid-cols-2 md:grid-cols-4 gap-8'>
+							{achievements.map((achievement, index) => (
+								<motion.div
+									key={index}
+									initial={{ opacity: 0, scale: 0.8 }}
+									animate={
+										isInView ? { opacity: 1, scale: 1 } : {}
+									}
+									transition={{
+										duration: 0.5,
+										delay: 0.7 + index * 0.1,
+									}}
+									whileHover={{ scale: 1.05 }}
+									className='text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:bg-white/15 transition-all duration-200'
+								>
+									<div className='text-3xl mb-2'>
+										{achievement.icon}
+									</div>
+									<div className='text-2xl font-bold text-white mb-1'>
+										{achievement.metric}
+									</div>
+									<div className='text-sm text-gray-300'>
+										{achievement.label}
+									</div>
+								</motion.div>
+							))}
+						</div>
 					</div>
 				</motion.div>
 
@@ -276,10 +309,10 @@ const TechStack = () => {
 					transition={{ duration: 0.8, delay: 0.8 }}
 					className='mt-20 text-center'
 				>
-					<h3 className='text-2xl md:text-3xl font-bold mb-8'>
+					<h3 className='text-2xl md:text-3xl font-bold mb-8 text-white'>
 						Integration Partners
 					</h3>
-					<div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 opacity-70'>
+					<div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8'>
 						{[
 							'Salesforce',
 							'Slack',
@@ -298,10 +331,10 @@ const TechStack = () => {
 									duration: 0.5,
 									delay: 0.9 + index * 0.1,
 								}}
-								whileHover={{ scale: 1.1 }}
-								className='flex items-center justify-center p-4 bg-gray-800 rounded-lg border border-gray-700'
+								whileHover={{ scale: 1.1, y: -2 }}
+								className='flex items-center justify-center p-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-200'
 							>
-								<span className='text-lg font-semibold text-gray-300'>
+								<span className='text-lg font-semibold text-white'>
 									{partner}
 								</span>
 							</motion.div>
