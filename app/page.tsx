@@ -1,6 +1,7 @@
 'use client';
 
-import { useSmoothScroll } from '../hooks/useSmoothScroll';
+import ClientWrapper from '../components/ClientWrapper';
+import SmoothScrollProvider from '../components/SmoothScrollProvider';
 import Navbar from '../components/Navbar';
 import Hero from '../sections/Hero';
 import About from '../sections/About';
@@ -10,10 +11,11 @@ import Contact from '../sections/Contact';
 import CTA from '../sections/CTA';
 
 export default function Home() {
-	useSmoothScroll();
-
 	return (
 		<main className='min-h-screen'>
+			<ClientWrapper>
+				<SmoothScrollProvider />
+			</ClientWrapper>
 			<Navbar />
 			<Hero />
 			<About />

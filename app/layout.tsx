@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
@@ -20,12 +20,16 @@ export const metadata: Metadata = {
 		'productivity',
 	],
 	authors: [{ name: 'AlfaStack Team' }],
-	viewport: 'width=device-width, initial-scale=1.0',
 	icons: {
 		icon: '/alfastack-logo.png',
 		shortcut: '/alfastack-logo.png',
 		apple: '/alfastack-logo.png',
 	},
+};
+
+export const viewport: Viewport = {
+	width: 'device-width',
+	initialScale: 1.0,
 };
 
 export default function RootLayout({
