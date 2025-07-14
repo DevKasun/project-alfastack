@@ -1,7 +1,16 @@
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { motion } from 'motion/react';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps
+	extends Omit<
+		ButtonHTMLAttributes<HTMLButtonElement>,
+		| 'onDrag'
+		| 'onDragStart'
+		| 'onDragEnd'
+		| 'onAnimationStart'
+		| 'onAnimationEnd'
+		| 'onAnimationIteration'
+	> {
 	variant?: 'primary' | 'secondary' | 'outline' | 'glass';
 	size?: 'sm' | 'md' | 'lg';
 	children: React.ReactNode;
