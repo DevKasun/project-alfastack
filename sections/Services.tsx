@@ -1,12 +1,15 @@
 'use client';
 
 import { motion, useInView } from 'motion/react';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Button from '../components/Button';
 
 const Services = () => {
 	const ref = useRef(null);
 	const isInView = useInView(ref, { once: true, amount: 0.2 });
+	const containerRef = useRef<HTMLElement>(null);
+	const [currentCard, setCurrentCard] = useState(0);
+	const [isScrollLocked, setIsScrollLocked] = useState(false);
 
 	const services = [
 		{
@@ -93,10 +96,44 @@ const Services = () => {
 		},
 	];
 
+	// Handle scroll hijacking for card reveal
+	useEffect(() => {
+		const handleWheel = (e: WheelEvent) => {
+			if (!containerRef.current) return;
+
+			const rect = containerRef.current.getBoundingClientRect();
+			const isInCardArea =
+				rect.top <= window.innerHeight / 2 &&
+				rect.bottom >= window.innerHeight / 2;
+
+			if (isInCardArea && !isScrollLocked) {
+				e.preventDefault();
+				setIsScrollLocked(true);
+
+				if (e.deltaY > 0) {
+					// Scrolling down
+					setCurrentCard((prev) =>
+						Math.min(prev + 1, services.length - 1)
+					);
+				} else {
+					// Scrolling up
+					setCurrentCard((prev) => Math.max(prev - 1, 0));
+				}
+
+				// Reset scroll lock after animation
+				setTimeout(() => setIsScrollLocked(false), 800);
+			}
+		};
+
+		window.addEventListener('wheel', handleWheel, { passive: false });
+		return () => window.removeEventListener('wheel', handleWheel);
+	}, [isScrollLocked, services.length]);
+
 	return (
 		<section
 			id='services'
-			className='py-20 relative overflow-hidden'
+			ref={containerRef}
+			className='py-20 relative overflow-hidden min-h-screen'
 			style={{
 				backgroundImage: `url('/images/bg-06.webp')`,
 				backgroundSize: 'cover',
@@ -155,67 +192,117 @@ const Services = () => {
 					))}
 				</div>
 
-				{/* Services Grid */}
-				<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-					{services.map((service, index) => (
-						<motion.div
-							key={index}
-							initial={{ opacity: 0, y: 30 }}
-							animate={isInView ? { opacity: 1, y: 0 } : {}}
-							transition={{
-								duration: 0.6,
-								delay: 0.4 + index * 0.1,
-							}}
-							whileHover={{ y: -5 }}
-							className='relative group'
-						>
-							{/* Background image */}
-							<div
-								className='absolute inset-0 rounded-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-300'
-								style={{
-									backgroundImage: `url('${service.backgroundImage}')`,
-									backgroundSize: 'cover',
-									backgroundPosition: 'center',
+				{/* Services Grid with Sequential Reveal */}
+				<div className='relative min-h-[600px] flex items-center justify-center'>
+					<div className='grid grid-cols-1 md:grid-cols-2 gap-8 w-full'>
+						{services.map((service, index) => (
+							<motion.div
+								key={index}
+								initial={{ opacity: 0, y: 100, scale: 0.8 }}
+								animate={{
+									opacity: index <= currentCard ? 1 : 0,
+									y: index <= currentCard ? 0 : 100,
+									scale: index <= currentCard ? 1 : 0.8,
 								}}
-							/>
-
-							{/* Glass card */}
-							<div className='relative bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 border border-white/20 overflow-hidden hover:bg-white/15'>
+								transition={{
+									duration: 0.6,
+									delay: index === currentCard ? 0.2 : 0,
+									ease: 'easeOut',
+								}}
+								style={{
+									zIndex: services.length - index,
+								}}
+								whileHover={{ y: -5 }}
+								className='relative group'
+							>
+								{/* Background image */}
 								<div
-									className={`h-1 bg-gradient-to-r ${service.color}`}
-								></div>
-								<div className='p-8'>
-									<div className='flex items-center mb-4'>
-										<div className='text-4xl mr-4'>
-											{service.icon}
+									className='absolute inset-0 rounded-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-300'
+									style={{
+										backgroundImage: `url('${service.backgroundImage}')`,
+										backgroundSize: 'cover',
+										backgroundPosition: 'center',
+									}}
+								/>
+
+								{/* Glass card */}
+								<div className='relative bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 border border-white/20 overflow-hidden hover:bg-white/15'>
+									<div
+										className={`h-1 bg-gradient-to-r ${service.color}`}
+									></div>
+									<div className='p-8'>
+										<div className='flex items-center mb-4'>
+											<div className='text-4xl mr-4'>
+												{service.icon}
+											</div>
+											<h3 className='text-2xl font-bold text-white'>
+												{service.title}
+											</h3>
 										</div>
-										<h3 className='text-2xl font-bold text-white'>
-											{service.title}
-										</h3>
+										<p className='text-gray-300 mb-6'>
+											{service.description}
+										</p>
+										<ul className='space-y-2'>
+											{service.features.map(
+												(feature, featureIndex) => (
+													<motion.li
+														key={featureIndex}
+														initial={{
+															opacity: 0,
+															x: -20,
+														}}
+														animate={{
+															opacity:
+																index <=
+																currentCard
+																	? 1
+																	: 0,
+															x:
+																index <=
+																currentCard
+																	? 0
+																	: -20,
+														}}
+														transition={{
+															duration: 0.5,
+															delay:
+																index ===
+																currentCard
+																	? 0.4 +
+																	  featureIndex *
+																			0.1
+																	: 0,
+														}}
+														className='flex items-center'
+													>
+														<span className='text-purple-400 mr-2'>
+															✓
+														</span>
+														<span className='text-gray-300'>
+															{feature}
+														</span>
+													</motion.li>
+												)
+											)}
+										</ul>
 									</div>
-									<p className='text-gray-300 mb-6'>
-										{service.description}
-									</p>
-									<ul className='space-y-2'>
-										{service.features.map(
-											(feature, featureIndex) => (
-												<li
-													key={featureIndex}
-													className='flex items-center'
-												>
-													<span className='text-purple-400 mr-2'>
-														✓
-													</span>
-													<span className='text-gray-300'>
-														{feature}
-													</span>
-												</li>
-											)
-										)}
-									</ul>
 								</div>
-							</div>
-						</motion.div>
+							</motion.div>
+						))}
+					</div>
+				</div>
+
+				{/* Progress Indicator */}
+				<div className='flex justify-center mt-8 space-x-2'>
+					{services.map((_, index) => (
+						<div
+							key={index}
+							className={`w-3 h-3 rounded-full transition-all duration-300 ${
+								index <= currentCard
+									? 'bg-purple-400'
+									: 'bg-white/30'
+							}`}
+						/>
 					))}
 				</div>
 

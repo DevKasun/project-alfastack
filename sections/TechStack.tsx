@@ -1,11 +1,14 @@
 'use client';
 
 import { motion, useInView } from 'motion/react';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 const TechStack = () => {
 	const ref = useRef(null);
 	const isInView = useInView(ref, { once: true, amount: 0.2 });
+	const containerRef = useRef<HTMLElement>(null);
+	const [currentCard, setCurrentCard] = useState(0);
+	const [isScrollLocked, setIsScrollLocked] = useState(false);
 
 	const techCategories = [
 		{
@@ -153,10 +156,44 @@ const TechStack = () => {
 		{ metric: 'ISO 27001', label: 'Certified', icon: '🏆' },
 	];
 
+	// Handle scroll hijacking for card reveal
+	useEffect(() => {
+		const handleWheel = (e: WheelEvent) => {
+			if (!containerRef.current) return;
+
+			const rect = containerRef.current.getBoundingClientRect();
+			const isInCardArea =
+				rect.top <= window.innerHeight / 2 &&
+				rect.bottom >= window.innerHeight / 2;
+
+			if (isInCardArea && !isScrollLocked) {
+				e.preventDefault();
+				setIsScrollLocked(true);
+
+				if (e.deltaY > 0) {
+					// Scrolling down
+					setCurrentCard((prev) =>
+						Math.min(prev + 1, techCategories.length - 1)
+					);
+				} else {
+					// Scrolling up
+					setCurrentCard((prev) => Math.max(prev - 1, 0));
+				}
+
+				// Reset scroll lock after animation
+				setTimeout(() => setIsScrollLocked(false), 800);
+			}
+		};
+
+		window.addEventListener('wheel', handleWheel, { passive: false });
+		return () => window.removeEventListener('wheel', handleWheel);
+	}, [isScrollLocked, techCategories.length]);
+
 	return (
 		<section
 			id='tech-stack'
-			className='py-20 relative overflow-hidden'
+			ref={containerRef}
+			className='py-20 relative overflow-hidden min-h-screen'
 			style={{
 				backgroundImage: `url('/images/bg-05.webp')`,
 				backgroundSize: 'cover',
@@ -185,74 +222,116 @@ const TechStack = () => {
 					</p>
 				</motion.div>
 
-				{/* Tech Categories */}
-				<div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20'>
-					{techCategories.map((category, categoryIndex) => (
-						<motion.div
-							key={categoryIndex}
-							initial={{ opacity: 0, y: 30 }}
-							animate={isInView ? { opacity: 1, y: 0 } : {}}
-							transition={{
-								duration: 0.6,
-								delay: categoryIndex * 0.1,
-							}}
-							className='relative group'
-						>
-							{/* Background image */}
-							<div
-								className='absolute inset-0 rounded-2xl opacity-30 group-hover:opacity-40 transition-opacity duration-300'
-								style={{
-									backgroundImage: `url('${category.backgroundImage}')`,
-									backgroundSize: 'cover',
-									backgroundPosition: 'center',
+				{/* Tech Categories with Sequential Reveal */}
+				<div className='relative min-h-[600px] flex items-center justify-center'>
+					<div className='grid grid-cols-1 lg:grid-cols-2 gap-8 w-full'>
+						{techCategories.map((category, categoryIndex) => (
+							<motion.div
+								key={categoryIndex}
+								initial={{ opacity: 0, y: 100, scale: 0.8 }}
+								animate={{
+									opacity:
+										categoryIndex <= currentCard ? 1 : 0,
+									y: categoryIndex <= currentCard ? 0 : 100,
+									scale:
+										categoryIndex <= currentCard ? 1 : 0.8,
 								}}
-							/>
+								transition={{
+									duration: 0.6,
+									delay:
+										categoryIndex === currentCard ? 0.2 : 0,
+									ease: 'easeOut',
+								}}
+								className='relative group'
+								style={{
+									zIndex:
+										techCategories.length - categoryIndex,
+								}}
+							>
+								{/* Background image */}
+								<div
+									className='absolute inset-0 rounded-2xl opacity-30 group-hover:opacity-40 transition-opacity duration-300'
+									style={{
+										backgroundImage: `url('${category.backgroundImage}')`,
+										backgroundSize: 'cover',
+										backgroundPosition: 'center',
+									}}
+								/>
 
-							{/* Glass card */}
-							<div className='relative bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:bg-white/15'>
-								<h3 className='text-2xl font-bold mb-6 text-center text-white'>
-									{category.title}
-								</h3>
-								<div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-									{category.technologies.map(
-										(tech, techIndex) => (
-											<motion.div
-												key={techIndex}
-												initial={{ opacity: 0, x: -20 }}
-												animate={
-													isInView
-														? { opacity: 1, x: 0 }
-														: {}
-												}
-												transition={{
-													duration: 0.5,
-													delay:
-														categoryIndex * 0.1 +
-														techIndex * 0.05,
-												}}
-												whileHover={{
-													scale: 1.05,
-													y: -2,
-												}}
-												className='flex items-center p-3 bg-white/10 backdrop-blur-sm rounded-xl hover:bg-white/20 transition-all duration-200 border border-white/10'
-											>
-												<div className='text-2xl mr-3'>
-													{tech.logo}
-												</div>
-												<div>
-													<div className='font-semibold text-white'>
-														{tech.name}
+								{/* Glass card */}
+								<div className='relative bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:bg-white/15'>
+									<h3 className='text-2xl font-bold mb-6 text-center text-white'>
+										{category.title}
+									</h3>
+									<div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+										{category.technologies.map(
+											(tech, techIndex) => (
+												<motion.div
+													key={techIndex}
+													initial={{
+														opacity: 0,
+														x: -20,
+													}}
+													animate={{
+														opacity:
+															categoryIndex <=
+															currentCard
+																? 1
+																: 0,
+														x:
+															categoryIndex <=
+															currentCard
+																? 0
+																: -20,
+													}}
+													transition={{
+														duration: 0.5,
+														delay:
+															categoryIndex ===
+															currentCard
+																? 0.4 +
+																  techIndex *
+																		0.1
+																: 0,
+													}}
+													whileHover={{
+														scale: 1.05,
+														y: -2,
+													}}
+													className='flex items-center p-3 bg-white/10 backdrop-blur-sm rounded-xl hover:bg-white/20 transition-all duration-200 border border-white/10'
+												>
+													<div className='text-2xl mr-3'>
+														{tech.logo}
 													</div>
-													<div className='text-sm text-gray-300'>
-														{tech.description}
+													<div>
+														<div className='font-semibold text-white'>
+															{tech.name}
+														</div>
+														<div className='text-sm text-gray-300'>
+															{tech.description}
+														</div>
 													</div>
-												</div>
-											</motion.div>
-										)
-									)}
+												</motion.div>
+											)
+										)}
+									</div>
 								</div>
-							</div>
-						</motion.div>
+							</motion.div>
+						))}
+					</div>
+				</div>
+
+				{/* Progress Indicator */}
+				<div className='flex justify-center mt-8 space-x-2'>
+					{techCategories.map((_, index) => (
+						<div
+							key={index}
+							className={`w-3 h-3 rounded-full transition-all duration-300 ${
+								index <= currentCard
+									? 'bg-purple-400'
+									: 'bg-white/30'
+							}`}
+						/>
 					))}
 				</div>
 
@@ -261,18 +340,14 @@ const TechStack = () => {
 					initial={{ opacity: 0, y: 30 }}
 					animate={isInView ? { opacity: 1, y: 0 } : {}}
 					transition={{ duration: 0.8, delay: 0.6 }}
-					className='relative'
+					className='relative mt-20'
 				>
 					<div className='absolute inset-0 bg-gradient-to-r from-purple-600/20 to-purple-800/20 rounded-2xl blur-xl' />
 					<div className='relative bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl'>
-						<h3 className='text-2xl md:text-3xl font-bold mb-8 text-center text-white'>
-							Performance & Security
+						<h3 className='text-2xl md:text-3xl font-bold text-center text-white mb-8'>
+							Performance & Reliability
 						</h3>
-						<p className='text-center text-gray-300 mb-8'>
-							Our infrastructure is built for enterprise-grade
-							reliability and security
-						</p>
-						<div className='grid grid-cols-2 md:grid-cols-4 gap-8'>
+						<div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
 							{achievements.map((achievement, index) => (
 								<motion.div
 									key={index}
@@ -282,15 +357,15 @@ const TechStack = () => {
 									}
 									transition={{
 										duration: 0.5,
-										delay: 0.7 + index * 0.1,
+										delay: 0.8 + index * 0.1,
 									}}
 									whileHover={{ scale: 1.05 }}
-									className='text-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:bg-white/15 transition-all duration-200'
+									className='text-center'
 								>
 									<div className='text-3xl mb-2'>
 										{achievement.icon}
 									</div>
-									<div className='text-2xl font-bold text-white mb-1'>
+									<div className='text-2xl md:text-3xl font-bold text-purple-400 mb-1'>
 										{achievement.metric}
 									</div>
 									<div className='text-sm text-gray-300'>
@@ -299,46 +374,6 @@ const TechStack = () => {
 								</motion.div>
 							))}
 						</div>
-					</div>
-				</motion.div>
-
-				{/* Integration Partners */}
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					animate={isInView ? { opacity: 1, y: 0 } : {}}
-					transition={{ duration: 0.8, delay: 0.8 }}
-					className='mt-20 text-center'
-				>
-					<h3 className='text-2xl md:text-3xl font-bold mb-8 text-white'>
-						Integration Partners
-					</h3>
-					<div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8'>
-						{[
-							'Salesforce',
-							'Slack',
-							'Microsoft',
-							'Google',
-							'Zapier',
-							'Stripe',
-						].map((partner, index) => (
-							<motion.div
-								key={index}
-								initial={{ opacity: 0, scale: 0.8 }}
-								animate={
-									isInView ? { opacity: 1, scale: 1 } : {}
-								}
-								transition={{
-									duration: 0.5,
-									delay: 0.9 + index * 0.1,
-								}}
-								whileHover={{ scale: 1.1, y: -2 }}
-								className='flex items-center justify-center p-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-200'
-							>
-								<span className='text-lg font-semibold text-white'>
-									{partner}
-								</span>
-							</motion.div>
-						))}
 					</div>
 				</motion.div>
 			</div>
